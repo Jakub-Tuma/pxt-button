@@ -1,15 +1,55 @@
-basic.forever(function () {
-    if (input.buttonIsPressed(Button.A)) {
+let startTime = 0
+let soundPlaying = false
 
-        music.ringTone(Note.C)
-        basic.pause(500)
+input.onButtonPressed(Button.A, function () {
+    soundPlaying = true
+    basic.showLeds(`
+        # # # # #
+        . # . # .
+        . . # . .
+        . # . # .
+        # # # # #
+    `)
 
-        music.stopAllSounds()
+    basic.pause(Math.randomRange(1000, 5000))
 
-        basic.showIcon(IconNames.Happy)
+    music.playTone(Note.C, 500)
+    startTime = input.runningTime()
+    basic.showString("Wait...")
+})
+
+Sensors.OnLightDrop(function () {
+    if (soundPlaying) {
+        soundPlaying = false
+        let reactionTime = input.runningTime() - startTime
+
+
+        if (reactionTime < 0) { 
+            basic.showLeds(`
+                . # . # .
+                . # . # .
+                . . . . .
+                . # # # .
+                # . . . #
+            `)
+        } else {
+            basic.showLeds(`
+                . # . # .
+                . # . # .
+                . . . . .
+                # . . . #
+                . # # # .
+            `)
+        }
+
+        let adjustedTime = reactionTime - 500
         basic.pause(1000)
-        basic.clearScreen()
-
-        led.setBrightness(255)
+        basic.showNumber(adjustedTime)
+    } else {
+        basic.showIcon(IconNames.Sad)
     }
+})
+
+basic.forever(function () { 
+
 })
