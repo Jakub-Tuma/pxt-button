@@ -4,7 +4,8 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "microphone": "*"
+        "microphone": "*",
+        "pxt-sensors": "github:TomasKazda/pxt-sensors#a4146d725fe882187db670cb094772d4e747a220"
     },
     "files": [
         "main.ts",
