@@ -49,7 +49,3 @@ Sensors.OnLightDrop(function () {
         basic.showIcon(IconNames.Sad)
     }
 })
-
-basic.forever(function () {
-
-})
